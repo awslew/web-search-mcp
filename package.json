@@ -1,0 +1,57 @@
+{
+  "name": "web-search-mcp",
+  "version": "1.1.0",
+  "description": "免费多引擎联网检索 MCP 服务器：中文走国内引擎融合、英文走国际链，含 RRF 融合排序、权威源信号、正文抽取与结果缓存；无 API key 也能用。",
+  "type": "module",
+  "private": false,
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.5"
+  },
+  "bin": {
+    "web-search-mcp": "./server-cn.mjs",
+    "web-search": "./ws.js"
+  },
+  "scripts": {
+    "test": "node run-tests.mjs",
+    "test:unit": "node run-tests.mjs --unit",
+    "test:net": "node test-search.mjs",
+    "test:mcp": "node test-mcp-e2e.mjs",
+    "verify:quality": "node verify-quality.mjs",
+    "verify:api": "node verify-api.mjs",
+    "update:blacklist": "node update_blacklist.mjs",
+    "eval:capture": "node eval/run-eval.mjs capture",
+    "eval:replay": "node eval/run-eval.mjs replay",
+    "eval:live": "node eval/run-eval.mjs live",
+    "eval:compare": "node eval/run-eval.mjs compare",
+    "eval:ab": "node eval/api-ab.mjs",
+    "eval:api": "node eval/api-score.mjs",
+    "eval:show": "node eval/show.mjs",
+    "eval:tune": "node eval/tune.mjs"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "web-search",
+    "search",
+    "rrf",
+    "readability",
+    "markdown",
+    "claude-code"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@mozilla/readability": "^0.6.0",
+    "cheerio": "^1.2.0",
+    "iconv-lite": "^0.6.3",
+    "linkedom": "^0.18.13",
+    "minisearch": "^7.2.0",
+    "turndown": "^7.2.4",
+    "turndown-plugin-gfm": "^1.0.2",
+    "undici": "^7.28.0"
+  },
+  "optionalDependencies": {
+    "@huggingface/transformers": "^4.2.0",
+    "onnxruntime-node": "1.24.3"
+  }
+}

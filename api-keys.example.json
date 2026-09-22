@@ -1,0 +1,13 @@
+{
+  "_README": "搜索 API 密钥模板（可选功能）。复制本文件为 api-keys.json 后填写，或直接改用环境变量。**三个字段留空则对应的 API 引擎自动跳过**，系统行为与没有本文件时完全一致。api-keys.json 已在 .gitignore 中，不会进仓库。",
+  "_recommended": "推荐优先用**环境变量**（跨平台、跨客户端、不落盘）：TAVILY_API_KEY / BOCHA_API_KEY / ZHIPU_API_KEY。持久化写法按平台任选：PowerShell 用户级 [Environment]::SetEnvironmentVariable('TAVILY_API_KEY','<key>','User')；bash/zsh 写进 ~/.bashrc 或 ~/.zshrc 的 export。设完用 node verify-api.mjs 验证。",
+  "_priority": "实际优先级：环境变量 > 本文件 > Windows 用户注册表；引擎优先级 tavily > bocha > zhipu（首个非空者胜出，见 search-core.mjs 的 searchApi）。",
+  "_pricing_note": "选哪家不要只看单价。参考（2026-09 记录，**请以各家官网现价为准**）：zhipu search_std 约 0.01 元/次；bocha 约 ￥0.036/次；tavily 按 credit 计费、**每账号每月 1000 credit 免费额度**（basic search = 1 credit，无需信用卡，多账号可叠加）。免费额度内 tavily 实际成本为 0。",
+  "_howto_tavily": "注册 https://app.tavily.com → API Keys → 复制 tvly- 开头的 key。未配置时「抢救闸门」静默关闭：百度被墙时中文链只剩 cn.bing / sogou，无第三方兜底。",
+  "_howto_zhipu": "https://open.bigmodel.cn → API Keys。代码固定用最便宜的 search_std 档。需在开放平台完成开通/实名，**通常无免费额度**。",
+  "_howto_bocha": "https://open.bochaai.com 申请。中文合规、多模态卡。新用户一般有免费试用包。",
+  "_howto_registry": "仅 Windows：若所在 MCP 客户端会清洗子进程环境变量（见 README「为什么还要读注册表」），用户级环境变量仍可通过注册表 HKCU\\Environment 被读到。用 PowerShell 的 [Environment]::SetEnvironmentVariable(...,'User') 写入即可同时覆盖两条路径。设 WEB_SEARCH_NO_REGISTRY=1 可关闭该回退（测试用）。",
+  "tavily": "",
+  "bocha": "",
+  "zhipu": ""
+}

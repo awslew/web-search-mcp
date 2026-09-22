@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>示例文档 · 正文抽取夹具</title>
+  <script>window.__noise = "这段 script 内容绝不应出现在抽取结果里";</script>
+  <style>.ad { display: block; }</style>
+</head>
+<body>
+  <header role="banner">
+    <nav role="navigation">
+      <a href="/">首页</a> <a href="/docs">文档</a> <a href="/about">关于</a>
+    </nav>
+  </header>
+
+  <div class="ad-banner">限时优惠！点击这里领取 500 元优惠券 — 广告位不该被抽出来</div>
+
+  <main>
+    <article>
+      <h1>虚拟支付接入指南</h1>
+      <p>本文说明如何在<strong>个人主体小程序</strong>中开通虚拟支付，需要先完成微信认证。</p>
+
+      <h2>前置条件</h2>
+      <ul>
+        <li>已完成微信认证</li>
+        <li>小程序类目属于支持范围</li>
+        <li>已签署相关协议</li>
+      </ul>
+
+      <h2>示例代码</h2>
+      <pre><code>const res = await wx.requestPayment({
+  timeStamp: '...',
+  nonceStr: '...',
+  package: 'prepay_id=...'
+});</code></pre>
+
+      <h2>常见问题</h2>
+      <table>
+        <thead><tr><th>问题</th><th>原因</th></tr></thead>
+        <tbody>
+          <tr><td>签名失败</td><td>密钥不匹配</td></tr>
+          <tr><td>无权限</td><td>未完成认证</td></tr>
+        </tbody>
+      </table>
+
+      <p>详见官方文档：<a href="https://developers.weixin.qq.com/miniprogram/dev/framework/">小程序开发文档</a></p>
+    </article>
+  </main>
+
+  <aside class="sidebar">
+    <h3>相关推荐</h3>
+    <a href="/hot/1">热门文章一</a>
+    <a href="/hot/2">热门文章二</a>
+  </aside>
+
+  <footer role="contentinfo">
+    <p>版权所有 © 2026 — 页脚内容不该被抽出来</p>
+    <a href="/privacy">隐私政策</a>
+  </footer>
+
+  <div class="ad-footer">底部广告位：扫码加入交流群</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+# ── 密钥：绝不提交 ──
+api-keys.json
+# gate.test.mjs 的"密封"逻辑在文件确实含有 key 时会短暂生成这份备份
+# （正常退出即删除；若进程被硬杀会残留，内容含真 key → 必须一并忽略）
+api-keys.json.bak
+*.key
+.env
+.env.*
+
+# ── 运行时产物 / 缓存 ──
+search_cache.sqlite
+search_cache.sqlite-journal
+t.sqlite
+models/
+tmp_render/
+.venv-ddg/
+
+# ── 评估与调参产物（体积大、可由 `npm run eval:capture` 再生） ──
+eval/raw-*.json
+eval/result-*.json
+eval/tune-*.json
+
+# ── 依赖与备份 ──
+node_modules/
+_backup_*/
+*.log
+*.err
+
+# ── 编辑器 / 系统 ──
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "note": "评估集：每条查询标注权威来源域(gold)。命中判定 = 结果 host === gold 或以 .gold 结尾。gold 取'机构级'域以保证判定稳健，微信系用精确子域避免公众号文章冒充官方文档。",
+  "cn": [
+    { "q": "微信小程序 虚拟支付", "gold": ["developers.weixin.qq.com"] },
+    { "q": "微信小程序 订阅消息 模板", "gold": ["developers.weixin.qq.com"] },
+    { "q": "微信小程序 云开发 数据库 查询", "gold": ["developers.weixin.qq.com"] },
+    { "q": "微信支付 API v3 签名", "gold": ["pay.weixin.qq.com", "developers.weixin.qq.com"] },
+    { "q": "python venv 虚拟环境", "gold": ["python.org"] },
+    { "q": "docker 数据卷 挂载", "gold": ["docker.com"] },
+    { "q": "redis 持久化 RDB AOF", "gold": ["redis.io"] },
+    { "q": "nginx 反向代理 配置", "gold": ["nginx.org", "nginx.com"] },
+    { "q": "git 撤销 最近一次 commit", "gold": ["git-scm.com"] },
+    { "q": "typescript 泛型 约束 extends", "gold": ["typescriptlang.org"] },
+    { "q": "mysql 索引 最左前缀", "gold": ["mysql.com", "dev.mysql.com"] },
+    { "q": "vue3 组合式 API setup", "gold": ["vuejs.org"] },
+    { "q": "react useEffect 清理函数", "gold": ["react.dev"] },
+    { "q": "nodejs fs readFile 文档", "gold": ["nodejs.org"] },
+    { "q": "支付宝 小程序 支付 接口", "gold": ["alipay.com", "opendocs.alipay.com"] },
+    { "q": "高德地图 逆地理编码 接口", "gold": ["amap.com", "lbs.amap.com"] },
+    { "q": "kubernetes liveness probe 配置", "gold": ["kubernetes.io"] },
+    { "q": "elasticsearch mapping 字段类型", "gold": ["elastic.co"] }
+  ],
+  "en": [
+    { "q": "python asyncio gather", "gold": ["python.org"] },
+    { "q": "rust ownership borrow checker", "gold": ["rust-lang.org"] },
+    { "q": "docker compose volumes", "gold": ["docker.com"] },
+    { "q": "postgresql index types btree", "gold": ["postgresql.org"] },
+    { "q": "kubernetes liveness probe", "gold": ["kubernetes.io"] },
+    { "q": "typescript conditional types", "gold": ["typescriptlang.org"] },
+    { "q": "redis persistence aof", "gold": ["redis.io"] },
+    { "q": "git rebase interactive squash", "gold": ["git-scm.com"] },
+    { "q": "react hooks rules of hooks", "gold": ["react.dev"] },
+    { "q": "nginx location directive", "gold": ["nginx.org"] },
+    { "q": "go modules go mod init", "gold": ["go.dev"] },
+    { "q": "elasticsearch analyzer tokenizer", "gold": ["elastic.co"] }
+  ],
+  "cn_real": [
+    { "q": "个税专项附加扣除 标准", "gold": ["gov.cn"] },
+    { "q": "医保 报销比例 起付线", "gold": ["gov.cn"] },
+    { "q": "护照 办理 流程 材料", "gold": ["gov.cn"] },
+    { "q": "个人养老金 参加条件", "gold": ["gov.cn"] },
+    { "q": "住房公积金 贷款利率", "gold": ["gov.cn"] },
+    { "q": "失业保险金 领取条件", "gold": ["gov.cn"] },
+    { "q": "新能源汽车 购置税 减免政策", "gold": ["gov.cn"] },
+    { "q": "12306 候补购票 规则", "gold": ["12306.cn"] },
+    { "q": "微信支付 提现 手续费", "gold": ["pay.weixin.qq.com", "kf.qq.com"] },
+    { "q": "顺丰 运费 收费标准", "gold": ["sf-express.com"] }
+  ]
+}
