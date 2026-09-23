@@ -1,7 +1,7 @@
 {
   "name": "web-search-mcp",
-  "version": "1.1.0",
-  "description": "免费多引擎联网检索 MCP 服务器：中文走国内引擎融合、英文走国际链，含 RRF 融合排序、权威源信号、正文抽取与结果缓存；无 API key 也能用。",
+  "version": "1.2.0",
+  "description": "Free multi-engine web search & content extraction MCP server for AI coding agents - no API key required. 免费多引擎联网检索与正文抽取 MCP 服务器：中文走国内引擎融合、英文走国际链，含 RRF 融合排序、权威源信号、正文抽取与结果缓存。",
   "type": "module",
   "private": false,
   "license": "MIT",
@@ -38,6 +38,37 @@
     "readability",
     "markdown",
     "claude-code"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/awslew/web-search-mcp.git"
+  },
+  "homepage": "https://github.com/awslew/web-search-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/awslew/web-search-mcp/issues"
+  },
+  "files": [
+    "server-cn.mjs",
+    "ws.js",
+    "search-core.mjs",
+    "extract-core.mjs",
+    "rerank.mjs",
+    "update_blacklist.mjs",
+    "ddgs_search.py",
+    "run-tests.mjs",
+    "test-search.mjs",
+    "test-mcp-e2e.mjs",
+    "verify-api.mjs",
+    "verify-quality.mjs",
+    "api-keys.example.json",
+    "skill/SKILL.md",
+    "eval/lib.mjs",
+    "eval/queries.json",
+    "eval/run-eval.mjs",
+    "eval/show.mjs",
+    "eval/fixtures/",
+    "README.md",
+    "LICENSE"
   ],
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
