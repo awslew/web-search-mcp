@@ -1,0 +1,68 @@
+# web-search-mcp
+
+> 免费多引擎联网检索与正文抽取 MCP（Model Context Protocol）服务器。
+> **无需任何 API key 即可完整使用。**
+
+- 定位：给 AI 编码助手（Claude Code / Codex / Cursor 等）提供**联网检索 + 网页正文抽取**能力
+- 中文查询走国内引擎直连融合（百度移动端 / 必应中国 / 搜狗），英文查询走国际链并行融合
+- 多路结果经 RRF（Reciprocal Rank Fusion）交叉校验，含垃圾域过滤与权威源加权
+- 输出为干净 Markdown（保留标题、代码块、GFM 表格），内置 GBK/GB2312 解码
+
+## 快速开始
+
+```bash
+# 1. 克隆并安装（需要 Node.js >= 22.5）
+git clone https://github.com/awslew/web-search-mcp.git
+cd web-search-mcp
+npm install
+
+# 2. 直接以 CLI 使用
+node ws.js search "mysql 索引 最左前缀原则"
+node ws.js fetch "https://nodejs.org/api/fs.html"
+node ws.js status
+```
+
+作为 MCP 服务器接入客户端（Claude Code / Claude Desktop / 任意 MCP 客户端）：
+
+```json
+{
+  "mcpServers": {
+    "web-search": {
+      "command": "node",
+      "args": ["/absolute/path/to/web-search-mcp/server-cn.mjs"]
+    }
+  }
+}
+```
+
+## 提供的 MCP 工具
+
+| 工具 | 作用 |
+|---|---|
+| `web_search` | 多引擎检索，返回融合排序后的结果 |
+| `web_fetch` | 抓取网页正文，返回干净 Markdown |
+| `web_search_status` | 查看当前引擎/闸门/密钥配置状态 |
+
+## 环境变量（全部可选）
+
+- `TAVILY_API_KEY` / `BOCHA_API_KEY` / `ZHIPU_API_KEY`：仅在引擎受限（候选池过少）时启用的
+  "抢救通道"。**不配置也完全可用**。
+- `HTTP_PROXY` / `HTTPS_PROXY` / `INTL_BING_PROXY`：国际引擎与外网抓取走代理；
+  国内引擎会自动保持直连。
+
+## 文档
+
+- [README.md](./README.md) — 完整说明、配置项、项目结构
+- [skill/SKILL.md](./skill/SKILL.md) — 检索纪律与实测参考手册（**给 AI agent 的最佳入口**）
+- [AGENTS.md](./AGENTS.md) — 在此仓库开发时的约定与命令
+- [docs/DEPLOY_GUIDE.md](./docs/DEPLOY_GUIDE.md) — 部署与故障排查
+- [docs/OPTIMIZATION_PLAN.md](./docs/OPTIMIZATION_PLAN.md) — 设计依据与取舍记录
+- [docs/VERIFICATION_REPORT.md](./docs/VERIFICATION_REPORT.md) — 改动后验收报告
+- [docs/baseline_results.md](./docs/baseline_results.md) — 改动前行为基线
+
+## Optional
+
+- [LICENSE](./LICENSE) — MIT License
+- [package.json](./package.json) — 依赖与脚本（`npm test` / `npm run eval:*`）
+- [docs/CHANGELOG-2026-09.md](./docs/CHANGELOG-2026-09.md) — 检索精准度改造记录（含受控实验与否定结论）
+- [eval/](./eval/) — 40 条标注查询的离线评估体系与调参脚本

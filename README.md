@@ -181,11 +181,12 @@ web-search-mcp/
 ├── update_blacklist.mjs  # 黑名单生成脚本（`npm run update:blacklist`）
 ├── eval/                 # 离线评估套件（40 条标注基准查询 queries.json 与调参脚本）
 ├── skill/                # Agent skill：检索纪律与实测参考手册（见下）
-├── CHANGELOG-2026-09.md  # 检索精准度改造记录（含大量受控实验与否定结论）
-├── OPTIMIZATION_PLAN.md  # 设计依据与取舍记录
-├── DEPLOY_GUIDE.md       # 部署与故障排查手册
-├── baseline_results.md   # 改动前行为基线（8 条查询逐字输出）
-└── VERIFICATION_REPORT.md # 改动后验收报告（与基线逐条对照）
+├── docs/                 # 开发与评估文档（过程记录，非使用必需）
+│   ├── OPTIMIZATION_PLAN.md    # 设计依据与取舍记录
+│   ├── CHANGELOG-2026-09.md    # 检索精准度改造记录（含大量受控实验与否定结论）
+│   ├── DEPLOY_GUIDE.md         # 部署与故障排查手册
+│   ├── baseline_results.md     # 改动前行为基线（8 条查询逐字输出）
+│   └── VERIFICATION_REPORT.md  # 改动后验收报告（与基线逐条对照）
 ```
 
 ---

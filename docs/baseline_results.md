@@ -248,4 +248,4 @@ results.forEach((r, i) => {
 - 命令逐一执行（非并发），Q4-Q6 走 `HTTP_PROXY=http://127.0.0.1:<proxy-port>`。
 - 百度在 Q1-Q7 期间可用（返回 [baidu]），Q8 起触发"安全验证"反爬（静默失败→回落 cn.bing），此后无代理查询均为 [bing]。
 - 代理路径 DDG（html.duckduckgo.com）每次均 0 结果静默失败，全部回落百度 → 英文查询全部为 [baidu] 中文结果（复现 OPTIMIZATION_PLAN 根因 #9）。
-- 相关文件：`./ws.js`（改动前）、`./OPTIMIZATION_PLAN.md`（设计依据）。
+- 相关文件：`./ws.js`（改动前）、`OPTIMIZATION_PLAN.md`（设计依据）。
