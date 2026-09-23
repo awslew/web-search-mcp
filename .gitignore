@@ -37,3 +37,7 @@ _backup_*/
 Thumbs.db
 .idea/
 .vscode/
+
+# ── npm 打包产物（npm pack 生成，不该提交） ──
+/web-search-mcp-*.tgz
+*.tgz

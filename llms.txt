@@ -10,13 +10,30 @@
 
 ## 快速开始
 
+推荐一行式接入（无需 clone、无需填本地绝对路径），MCP 客户端配置：
+
+```json
+{
+  "mcpServers": {
+    "web-search": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "https://github.com/awslew/web-search-mcp/releases/download/v1.2.0/web-search-mcp-1.2.0.tgz"
+      ]
+    }
+  }
+}
+```
+
+或源码安装：
+
 ```bash
-# 1. 克隆并安装（需要 Node.js >= 22.5）
 git clone https://github.com/awslew/web-search-mcp.git
 cd web-search-mcp
 npm install
 
-# 2. 直接以 CLI 使用
+# 直接以 CLI 使用
 node ws.js search "mysql 索引 最左前缀原则"
 node ws.js fetch "https://nodejs.org/api/fs.html"
 node ws.js status

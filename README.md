@@ -30,6 +30,30 @@
 
 ## 快速安装
 
+### 方式 A：一行式接入（推荐，无需 clone、无需配置路径）
+
+MCP 客户端配置里直接用 Release 包地址，`npx` 会自动拉取并运行：
+
+```json
+{
+  "mcpServers": {
+    "web-search": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "https://github.com/awslew/web-search-mcp/releases/download/v1.2.0/web-search-mcp-1.2.0.tgz"
+      ]
+    }
+  }
+}
+```
+
+首次运行会拉取依赖（实测约 **30 秒 / 33 MB**），之后走缓存、启动近乎瞬时。
+
+> 升级方式：把上面的版本号 `v1.2.0` 换成新版本号即可（见 [Releases](https://github.com/awslew/web-search-mcp/releases)）。
+
+### 方式 B：源码安装（想改代码或跑测试时用）
+
 ```bash
 git clone https://github.com/awslew/web-search-mcp.git
 cd web-search-mcp
