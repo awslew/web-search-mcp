@@ -119,6 +119,13 @@ node ws.js status
 ### 3. 可选高级特性
 - `RERANK=1`：开启语义重排（**默认关闭，且不建议开**）。开启后首次会下载 `Xenova/bge-reranker-base` 本地模型（约 283 MB）。混合权重由 `RERANK_WEIGHT` 控制，代码默认 0.35。
   - ⚠️ 但实测结论是**权重越大越差**：纯 RRF 基线中文 nDCG@5 为 `0.8396`，权重 0.35 时降到 `0.6446`，权重 1.0 时进一步掉到 `0.4628`。原因是 cross-encoder 偏好"像直接答案"的文本，会**系统性把官方文档降级为第三方博客**。想找权威文档时请保持关闭；只有明确想找通俗教程/问答时再考虑，并参考 `eval/sweep-rerank.mjs` 自行标定。
+  - **`RERANK=1` 需要先手动装可选依赖**（默认不装，见下条）。
+- **重依赖（rerank 用）默认不装，需要时手动安装**：`npm install @huggingface/transformers onnxruntime-node`。
+  未安装时 rerank 自动禁用（打印一行提示后回退原序），不影响其他任何功能。
+  > 为什么不做成 `optionalDependencies`：两者合计约 **616 MB**（`onnxruntime-node` 210 MB +
+  > `@huggingface` 207 MB + `onnxruntime-web` 139 MB），而 rerank 默认关闭且实测会降级官方文档。
+  > 列为可选依赖会让 `npx` / 首次安装从 **26 秒变成 10 分钟以上**（实测 616 MB/10 分钟+ →
+  > 33 MB/26 秒），对绝大多数用户是纯损失。
 - `web_fetch` / `ws.js fetch` 的输出格式：通过参数 `format` 控制（`markdown` 默认、保留结构；`text` 为拍平纯文本）。
 
 ### 4. 垃圾域黑名单（本地生成，可选）

@@ -47,7 +47,7 @@ node ws.js status                    # 看当前闸门/引擎/密钥状态（排
 | `ws.js` | CLI 入口（search / fetch / status） |
 | `search-core.mjs` | 检索核心：引擎驱动、RRF 融合、黑名单、权威加权、缓存、API 抢救闸门 |
 | `extract-core.mjs` | 正文抽取：linkedom + Readability + turndown + GBK 解码 |
-| `rerank.mjs` | 可选语义重排（cross-encoder，**默认关闭，实测会降级官方文档**） |
+| `rerank.mjs` | 可选语义重排（cross-encoder，**默认关闭，实测会降级官方文档**）；重依赖走动态 `await import()`，缺失时静默禁用 |
 | `eval/` | 40 条标注查询的离线评估体系 |
 | `skill/` | 检索纪律手册 |
 

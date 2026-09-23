@@ -111,7 +111,7 @@ const TOOL_DEFS = [
 // ─── MCP Server ──────────────────────────────────────
 
 const server = new Server(
-  { name: "web-search-cn", version: "1.0.0" },
+  { name: "web-search-cn", version: "1.2.0" },
   { capabilities: { tools: {} } }
 );
 

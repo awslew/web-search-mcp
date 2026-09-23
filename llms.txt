@@ -39,9 +39,11 @@ node ws.js status
 
 | 工具 | 作用 |
 |---|---|
-| `web_search` | 多引擎检索，返回融合排序后的结果 |
-| `web_fetch` | 抓取网页正文，返回干净 Markdown |
-| `web_search_status` | 查看当前引擎/闸门/密钥配置状态 |
+| `web_search` | 多引擎检索，返回融合排序后的结果（`query` / `max_results`） |
+| `web_fetch` | 抓取网页正文，返回干净 Markdown（`url` / `max_length` / `format`） |
+| `site_search` | 限定单个域名内检索（自动附加 `site:<domain>` 并按 hostname 过滤） |
+
+也可以不经 MCP 直接当 CLI 用（`node ws.js search|fetch|status`）。
 
 ## 环境变量（全部可选）
 
