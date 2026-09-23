@@ -105,7 +105,7 @@ metadata:
   - **推断规则**：查询拉丁词与 `AUTHORITY_DOMAINS` 比对（精确 > 前缀≥4字 > 包含≥4字 > 词首相同时编辑距离≤2），外加 6 条 `OFFICIAL_ALIASES`（如 `golang→go.dev`、`k8s→kubernetes.io`、`微信支付→pay.weixin.qq.com`）。⚠️ 模糊档必须词首相同（防 `setup` 误匹配为 `svelte.dev`），推不出则不猜。
   - ⚠️ **站内查询必须与站点文档同语种**（英文站搜中文词面零匹配，必须转为「产品 token + 文档意图词」）。
   - 实测同池对照效果：`mysql 索引 最左前缀原则` 池内文档页 `0 → 7 条`，`dev.mysql.com` rank 4 → 1；`微信小程序 虚拟支付` 官方域从无到有。开关：`OFFICIAL_DOCS_PASS=0`。
-- **黑名单与降权实测**：`blacklist.json`（4,300+ 规则）。
+- **黑名单与降权实测**（规则由 `npm run update:blacklist` 本地生成，代码内含兜底名单）。
   - **百度 UGC 降权**（`wk/zhidao/wen/aistudy/jingyan.baidu.com`）：真实场景 nDCG@5 `+8.4%`（0.7133 → 0.7730），技术集零回归。"顺丰 运费" top-5 官方域从 1 条提升至 4 条，第 1 名由百度与必应双引擎共同命中。
   - **搜狗跳转链降权**（`weixin.sogou.com`）：跳转链因 `cov=1.00` 虚高占榜，降权后问题查询 nDCG@5 `+86%`，官方域升至第 4 位；反向验证：该查询并入 API 反而让官方域再次掉出 top-5。
 - **语义重排默认关闭**：`RERANK=1` 启用 cross-encoder（`bge-reranker-base` 266MB 模型），实测权重 1.0 时 nDCG@5 从 `0.8396` 塌陷至 `0.4628`，会系统性将官方文档降级为第三方博客（kubernetes.io → komodor.com）。仅在需要通俗教程时可开启并调节 `RERANK_WEIGHT=0.35`。

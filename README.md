@@ -14,7 +14,7 @@
 
 本项目通过多层质量管线解决上述问题：
 1. **多引擎直连与融合**：中文查询并行聚合国内直连引擎（百度移动端、必应中国、搜狗），英文查询走国际引擎并行融合，经 RRF（Reciprocal Rank Fusion）多路交叉校验。
-2. **两级垃圾域过滤**：内建 `blacklist.json`（4,300+ 规则），对垃圾域名进行硬过滤（`remove`），对百家号、知乎营销号等特定 UGC 域进行降权（`lower`），使真实场景查询 nDCG@5 提升 8.4% 且技术查询零回归。
+2. **两级垃圾域过滤**：对垃圾域名硬过滤（`remove`）、对百家号/知乎/CSDN 等 UGC 域降权（`lower`）。代码内置一份兜底名单（垃圾 TLD + 短链域 + 策划降权域），开箱即生效；完整名单（4,300+ 规则）由 `npm run update:blacklist` 从公开上游列表本地生成 —— **该数据文件因上游为 GPL-3.0 许可而不随本仓库分发**。实测真实场景查询 nDCG@5 提升 8.4% 且技术查询零回归。
 3. **权威源信号加权与官方文档召回**：识别官方文档子站（如 `docs.*`、`dev.*`）并给予权威加权。离线评估集（40 条标注查询）总体 nDCG@5 由 `0.7788` 提升至 `0.9313`，hit@1 由 `0.6667` 提升至 `0.9000`；另有 8 条查询的**同一份候选池**在线开/关对照：信号开启时 hit@1 `8/8`、关闭时 `2/8`。⚠️ 该 8 条是按"官方域在候选池内"挑出的，**结果偏乐观**，离线涨幅也相对 09-12 的旧缓存基线，不宜当作普适增益。对技术查询自动推断官方域并发起站内召回，确保官方文档页进候选池。
 4. **API 抢救闸门**：仅在生产引擎受限（候选池 `raw < 12`）时自动并入搜索 API（支持 Tavily / 博查 / 智谱），无 key 时保持纯免费直连。受控 A/B 实测（40 次 API 调用）：中文 nDCG@5 `0.6359 → 0.7370`（+0.1011），英文**逐位零影响**；对照的"无条件全并入"策略虽然中文同分，却把英文打掉 5.1% —— 这正是设置闸门条件的意义。
 5. **结构化 Markdown 抽取**：采用 `linkedom` + `Readability` + `turndown` 抽取正文，保留标题、代码块、GFM 表格与链接，内置 GBK/GB2312 编码自动探测与解码。
@@ -121,6 +121,20 @@ node ws.js status
   - ⚠️ 但实测结论是**权重越大越差**：纯 RRF 基线中文 nDCG@5 为 `0.8396`，权重 0.35 时降到 `0.6446`，权重 1.0 时进一步掉到 `0.4628`。原因是 cross-encoder 偏好"像直接答案"的文本，会**系统性把官方文档降级为第三方博客**。想找权威文档时请保持关闭；只有明确想找通俗教程/问答时再考虑，并参考 `eval/sweep-rerank.mjs` 自行标定。
 - `web_fetch` / `ws.js fetch` 的输出格式：通过参数 `format` 控制（`markdown` 默认、保留结构；`text` 为拍平纯文本）。
 
+### 4. 垃圾域黑名单（本地生成，可选）
+
+代码**内置一份兜底名单**（垃圾 TLD + 短链域 + 策划降权域），开箱即用、无需任何额外步骤。
+
+完整名单（4,300+ 条规则）需本地生成：
+
+```bash
+HTTP_PROXY=http://127.0.0.1:<port> npm run update:blacklist   # 需代理（上游列表在境外）
+```
+
+它会从 StevenBlack/hosts 与 hagezi/dns-blocklists 下载、压缩去重后写入 `blacklist.json`，运行时**只读该文件、不再联网**（任意下载失败则跳过该源，仍用内建名单写出文件）。
+
+> ⚠️ **该文件不随本仓库分发**：上游 hagezi/dns-blocklists 采用 **GPL-3.0** 许可，本仓库为 MIT，直接打包其衍生物会造成许可冲突。因此 `blacklist.json` 被列入 `.gitignore`，请自行生成（生成物仅供你本地使用，是否再分发请自行遵循上游许可）。若某次下载全部失败，程序行为与没有该文件时完全一致。
+
 ---
 
 ## 测试与评估
@@ -156,7 +170,7 @@ web-search-mcp/
 ├── search-core.mjs       # 核心检索层（引擎驱动、RRF 融合、黑名单、权威加权、缓存与 API 闸门）
 ├── extract-core.mjs      # 正文抽取管线（linkedom + Readability + turndown + GBK 解码）
 ├── rerank.mjs            # 可选语义重排层（cross-encoder，默认关闭）
-├── blacklist.json        # 垃圾域名与降权规则数据
+├── blacklist.json        # 垃圾域名与降权规则数据（本地生成，未随仓库分发，见下）
 ├── ddgs_search.py        # 可选 DuckDuckGo 搜索 Python 桥接脚本
 ├── api-keys.example.json # API 密钥模板（复制为 api-keys.json 使用）
 ├── run-tests.mjs         # 测试驱动器（9 套测试调度）
@@ -164,7 +178,7 @@ web-search-mcp/
 ├── test-mcp-e2e.mjs      # MCP 端到端 JSON-RPC 通信测试
 ├── verify-quality.mjs    # 权威源信号在线同池对照脚本
 ├── verify-api.mjs        # 搜索 API 连通性与结果验证脚本
-├── update_blacklist.mjs  # 黑名单数据更新脚本
+├── update_blacklist.mjs  # 黑名单生成脚本（`npm run update:blacklist`）
 ├── eval/                 # 离线评估套件（40 条标注基准查询 queries.json 与调参脚本）
 ├── skill/                # Agent skill：检索纪律与实测参考手册（见下）
 ├── CHANGELOG-2026-09.md  # 检索精准度改造记录（含大量受控实验与否定结论）

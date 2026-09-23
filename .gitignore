@@ -15,6 +15,12 @@ models/
 tmp_render/
 .venv-ddg/
 
+# ── 本地生成的数据文件（不随仓库分发）──
+# blacklist.json 由 `npm run update:blacklist` 从上游列表生成；
+# 上游 hagezi/dns-blocklists 为 GPL-3.0，而本仓库为 MIT，故不打包其衍生物。
+# 代码内置兜底名单，缺此文件时行为一致（过滤强度略低）。
+blacklist.json
+
 # ── 评估与调参产物（体积大、可由 `npm run eval:capture` 再生） ──
 eval/raw-*.json
 eval/result-*.json
