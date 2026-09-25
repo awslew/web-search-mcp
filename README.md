@@ -1,6 +1,8 @@
 # Web Search MCP Server
 
-一个专为 AI 编码助手打造的免费、跨引擎、高质量联网检索与正文抽取 MCP（Model Context Protocol）stdio 服务器。
+编码 agent 要查最新文档或排查报错，却没有搜索 API key；普通搜索结果还常被广告和低质页面占满。这个工具让 agent **不用 key 也能联网查资料**：同时搜索多个引擎，尽量把官方文档等可靠结果排前面，再提取可读的网页正文，省去你手工搜索和复制粘贴。
+
+它以 MCP（Model Context Protocol）stdio 服务接入编码客户端；下文再说明多引擎融合、排序和正文抽取的技术细节。
 
 [![Node](https://img.shields.io/badge/node-%3E%3D22.5-brightgreen.svg)](#环境要求)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](#许可证)
